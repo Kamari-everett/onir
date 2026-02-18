@@ -2,16 +2,16 @@
 
 #include "onir.h"
 
-#include "dial_encoder.h"
+#include "dial.h"
 #include "char_device.h"
 
 // uses a dial and screen to select a numerical I2C channel (int).
 class ChannelSelector {
 public:
-  ChannelSelector(DialEncoder* dial_in, CharDevice* screen_in) {
-    dial = dial_in;
-    screen = screen_in;
-    channel = min_channel;
+  ChannelSelector(Dial* d, CharDevice* s) {
+    dial = d;
+    screen = s;
+    channel = 9;  // a dial gets channel 8 by default.
   }
 
   int get_channel();
@@ -20,7 +20,7 @@ public:
 private:
   int channel;
 
-  DialEncoder* dial;
+  Dial* dial;
   CharDevice* screen;
   
   const int min_channel = 0x08;        // = 8 -- https://i2cdevices.org/addresses
@@ -35,7 +35,6 @@ private:
 
   void channel_up();
   void channel_down();
-
 
 };
 

@@ -16,15 +16,13 @@ char ChannelSelector::hex_digit(int value) {
 
 void ChannelSelector::display_channel() {
   screen->put_char(0, '0');
-  screen->put_char(1, 'f');
+  screen->put_char(1, 'x');
   screen->put_char(2, hex_digit(channel / 16));
   screen->put_char(3, hex_digit(channel % 16));
 }
 
 
 int ChannelSelector::get_channel() {
-  Serial.println("enter");
-  dial->zero();
   display_channel();
   long dial_value = dial->value();
   dial->update();

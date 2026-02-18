@@ -1,5 +1,5 @@
 #include "char_device.h"
-#include "dial_encoder.h"
+#include "dial.h"
 #include "uno_pinout.h"
 #include "Wire.h"
 
@@ -21,11 +21,11 @@ CharDevice device;  // local device
 
 CharDisplay* switchboard[0x80];  // 128-address switchboard
 
-const int channels[] = { 0x8, 0x9, 0xA };
+const int channels[] = { 0x9, 0xA };
 const int n_channels = sizeof(channels) / sizeof(int);
 const int n_chars = 4 * n_channels;
 char display_word[n_chars + 1];
-DialEncoder dial;
+Dial dial;
 
 long controller_index = -1;
 const unsigned int banner_ms = 3142;
@@ -59,7 +59,7 @@ void setup() {
   Serial.begin(9600);
   int* pinout = set_uno_pinout(init_interface);
   device.set_pinout(pinout);
-  dial.set_pinout(pinout);
+  dial.set_channel(BASE_CHANNEL);
   setup_channels();
   Serial.println("starting test client.");
   Wire.begin();  // no address == host.
@@ -70,8 +70,7 @@ void update_controller() {
   long step_now = max(0, (millis() - banner_ms)) / millis_per_step;
   dial.update();
   long index_now = step_now + dial.value();
-  if (index_now != controller_index) {
-    Serial.println(dial.value());
+  if (controller_index != index_now) {
     controller_index = index_now;
     Serial.print("index ");
     Serial.println(index_now);

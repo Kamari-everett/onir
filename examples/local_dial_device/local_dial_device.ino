@@ -1,12 +1,16 @@
-#include "dial_encoder.h"
+#include "dial.h"
+#include "dial_device.h"
 #include "uno_pinout.h"
 
-DialEncoder dial;
+Dial dial;
+DialDevice device;
 int dial_value;
 
 void setup() {
   Serial.begin(9600);
-  dial.set_pinout(set_uno_pinout(init_interface));
+  int* pinout = set_uno_pinout(init_interface);
+  device.set_pinout(pinout);
+  dial.attach_device(&device);
   Serial.println("starting dial test");
   dial_value = dial.value();
 }

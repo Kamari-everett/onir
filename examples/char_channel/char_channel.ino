@@ -1,11 +1,14 @@
 #include "char_device.h"
-#include "dial_encoder.h"
+#include "dial.h"
+#include "dial_device.h"
 #include "uno_pinout.h"
 #include "channel_selector.h"
 
 #include "Wire.h"
 
-DialEncoder dial;
+Dial dial;
+DialDevice dial_device;
+
 CharDevice device;
 
 int channel = -1;
@@ -61,8 +64,13 @@ void setup() {
   Serial.println("start ms: " + String(start_millis));
   int* pinout = set_uno_pinout(init_interface);
   device.set_pinout(pinout);
-  dial.set_pinout(pinout);
-  init_channel(ChannelSelector(&dial, &device).get_channel());
+  dial_device.set_pinout(pinout);
+  dial.attach_device(&dial_device);
+  int c = ChannelSelector(&dial, &device).get_channel();
+  channel = c;
+  Serial.print("selected: ");
+  Serial.println(c);
+  init_channel(c);
 }
 
 long steps = -1;
