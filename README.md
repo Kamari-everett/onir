@@ -9,6 +9,8 @@ The name 'onir' may sound dreamy, but it's also short for "oh, nothing I'd recom
 
 2026-02-20:
 
+9: Remove CharDisplay/CharDevice and associated demos; organize demos. 
+
 8: Add a class called Display that splits a string across a handful of screens and keeps them refreshed.
 
 I got the bot to write this yesterday from a description and some iteration. It seemed like the type of problem it should be best at: empty page, not much to integrate with upstream and nothing downstream. As usual it started with the omni-loop style. But it only took some gentle, non-directive nudging to get it to break out the most egregious repeated chunk, the logic to find the right letter to show.
