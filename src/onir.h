@@ -46,11 +46,6 @@ using Interface = int[(int)PinFunction::END];
 
 extern Interface init_interface;
 
-struct DisplayState {
-  char chars[4];  // characters on screen; ' ' is blank.
-  int point;     // using values outside [0,3] is pointless.
-};
-
 struct ScreenState {
   char chars[4];  // characters on screen; ' ' is blank.
   int point;      // using values outside [0,3] is pointless.
@@ -68,7 +63,7 @@ struct DialState {
 };
 
 struct IOState {
-  DisplayState display;
+  ScreenState screen;
   DialState dial;
   ServoState servo;
 };

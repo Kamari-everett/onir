@@ -14,14 +14,19 @@ public:
     channel = 9;  // a dial gets channel 8 by default.
   }
 
+  Selector(int (*p)[(int)PinFunction::END]);
+
   int get_channel();
 
 
 private:
   int channel;
 
-  Dial* dial;
-  Screen* screen;
+  Dial* dial = nullptr;
+  Screen* screen = nullptr;
+
+  int (*pinout)[(int)PinFunction::END];
+  
   
   const int min_channel = 0x08;        // = 8 -- https://i2cdevices.org/addresses
   const int max_channel = 0x77;        // 0x77 = 119

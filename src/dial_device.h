@@ -6,8 +6,8 @@ class DialDevice {
 public:
   DialDevice() {}
   DialDevice(Interface p);
-
   void set_pinout(Interface p) { pinout = p; };
+
   void init();
   void read(DialState& state);
 

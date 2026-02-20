@@ -1,5 +1,10 @@
 #include "selector.h"
 
+
+Selector::Selector(int (*p)[(int)PinFunction::END]) {
+  pinout = p;
+}
+
 void Selector::channel_up() {
   if (channel < max_channel) channel++;
 }
@@ -23,6 +28,10 @@ void Selector::display_channel() {
 
 
 int Selector::get_channel() {
+  Dial local_dial;
+  if (pinout) {
+    local_dial = Dial(pinout);
+  }
   display_channel();
   long dial_value = dial->value();
   dial->update();

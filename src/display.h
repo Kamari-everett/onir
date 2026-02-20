@@ -30,7 +30,7 @@ public:
     review();
   }
 
-  void get_offset() const { return shift_; }
+  int get_offset() const { return shift_; }
     
 
   void refresh() {

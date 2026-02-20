@@ -7,6 +7,11 @@ DialDevice::DialDevice(Interface p) : DialDevice() {
     init();
   }
 
+void DialDevice::set_pinout(int p[(int)PinFunction::END]) {
+  pinout = p;
+  init();
+}
+
 void DialDevice::init() {
   pinMode(pinout[(int)PinFunction::CLOCK],  INPUT_PULLUP);
   pinMode(pinout[(int)PinFunction::DATA],   INPUT_PULLUP);
