@@ -7,6 +7,8 @@ class DialDevice;
 class Dial {
 public:
   Dial();
+  Dial(int ch);
+  Dial(int pinout[(int)PinFunction::END]);
 
   void attach(DialDevice* d);
   

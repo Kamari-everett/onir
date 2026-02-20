@@ -7,6 +7,15 @@
 Dial::Dial() {
   zero();
 }
+
+Dial::Dial(int ch) : Dial() {
+  set_channel(ch);
+}
+
+Dial::Dial(int pinout[(int)PinFunction::END]) {
+  attach(new DialDevice(pinout));
+}
+
 void Dial::attach(DialDevice* d) {
   device->init();
   device = d;

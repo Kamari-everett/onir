@@ -4,7 +4,10 @@
 
 class DialDevice {
 public:
-  void set_pinout(int* p) { pinout = p; }
+  DialDevice() {}
+  DialDevice(int p[(int)PinFunction::END]);
+
+  void set_pinout(int* p) { pinout = p; };
   void init();
   void read(DialState& state);
 

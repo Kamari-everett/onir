@@ -1,4 +1,5 @@
 #include "screen.h"
+#include "Wire.h"
 
 Screen screen(SCREEN_DEVICE_CHANNEL);
 
@@ -13,6 +14,7 @@ void flash() {
 void setup() {
   Serial.begin(9600);
   banner();
+  Wire.begin();
   Serial.println("onir");
 }
 

@@ -7,7 +7,6 @@
 
 void Screen::init(int c) {
   channel = c;
-  Wire.begin();
 }
 
 void Screen::refresh() {

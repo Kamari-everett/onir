@@ -7,6 +7,19 @@ The name 'onir' may sound dreamy, but it's also short for "oh, nothing I'd recom
 
 # updates
 
+2026-02-20:
+
+8: Add a class called Display that splits a string across a handful of screens and keeps them refreshed.
+
+I got the bot to write this yesterday from a description and some iteration. It seemed like the type of problem it should be best at: empty page, not much to integrate with upstream and nothing downstream. As usual it started with the omni-loop style. But it only took some gentle, non-directive nudging to get it to break out the most egregious repeated chunk, the logic to find the right letter to show.
+
+Initially the core logic was maybe 1/3 edge-checks and guards against bad inputs. Sometimes if you simplify your expectations about behavor, a lot of that logic falls away like a dry chrysalis, and you can just say what you need to say. In this case, stipulating that the offset would loop around the message circularly had this effect: lots of vanishing guard conditions, higher signal:noise for students trying to figure out what's going on.
+
+But modulo the usual difficulties with the robot refusing to read the code and stubbornly making up methods (honestly I've gone through worse with junior hires) the code worked almost out of the box. First win on my books for team robot overlords.
+
+(https://chatgpt.com/share/699853fb-a1b8-8003-9d56-4e841b3d149c)
+
+
 2026-02-19:
 
 seventh commit: Duplicate ChannelSelector into Selector, with a script that uses it to select a channel for Screen.
