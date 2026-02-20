@@ -30,7 +30,7 @@ public:
 
 private:
 
-  int device_pinout[(int)PinFunction::END];
+  Interface device_pinout;
 
   // Map positions to position/cathode pins.
   PinFunction positions[4];
@@ -38,13 +38,13 @@ private:
   // segment/anode pins
   PinFunction segments[7];
 
-  int segment_masks[(int)PF::END];
+  Interface segment_masks;
   int sm(char seg) {
     return segment_masks[(int)PF::DD_A + (int)seg - (int)'A'];
   }
 
   void set_segment_masks() {
-    for (int i = 0; i < (int)PF::END; i++) {
+    for (int i = 0; i < interface_size; i++) {
       segment_masks[i] = 0;
     }
     for (int i = (int)PF::DD_A; i <= (int)PF::DD_G; i++) {

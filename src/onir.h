@@ -40,7 +40,10 @@ enum class PinFunction {
   
     };
 
-extern int init_interface[(int)PinFunction::END];
+extern int interface_size;
+
+using Interface = int[(int)PinFunction::END];
+extern Interface init_interface;
 
 struct DisplayState {
   char chars[4];  // characters on screen; ' ' is blank.
@@ -56,7 +59,6 @@ struct ServoState {
   int servo_l = 1500;
   int servo_r = 1500;
 };
- 
  
 struct DialState {
   long count = 0;

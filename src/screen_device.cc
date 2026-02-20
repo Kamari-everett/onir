@@ -10,7 +10,7 @@ ScreenDevice::ScreenDevice() {
   for (int i = 0; i < 4; i++) {
     positions[i] = (PinFunction)(i + (int)PF::DD_1);
   }
-  for (int i = 0; i < (int)PinFunction::END; i++) {
+  for (int i = 0; i < interface_size; i++) {
     device_pinout[i] = -1;
   }
   set_segment_masks();

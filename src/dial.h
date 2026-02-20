@@ -8,7 +8,7 @@ class Dial {
 public:
   Dial();
   Dial(int ch);
-  Dial(int pinout[(int)PinFunction::END]);
+  Dial(Interface pinout);
 
   void attach(DialDevice* d);
   

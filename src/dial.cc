@@ -12,7 +12,7 @@ Dial::Dial(int ch) : Dial() {
   set_channel(ch);
 }
 
-Dial::Dial(int pinout[(int)PinFunction::END]) {
+Dial::Dial(Interface pinout) {
   attach(new DialDevice(pinout));
 }
 

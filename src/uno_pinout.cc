@@ -5,7 +5,7 @@ int set_pin(int* pinout, PinFunction pf, int pin) {
 }
 
 int* set_uno_pinout(int* pinout) {
-  for (int i = 0; i < (int)PF::END; i++) {
+  for (int i = 0; i < interface_size; i++) {
     pinout[i] = 0;
   }
 

@@ -2,11 +2,11 @@
 
 #include <Arduino.h>
 
-
-DialDevice::DialDevice(int p[(int)PinFunction::END]) : DialDevice() {
+DialDevice::DialDevice(Interface p) : DialDevice() {
     set_pinout(p);
     init();
   }
+
 void DialDevice::init() {
   pinMode(pinout[(int)PinFunction::CLOCK],  INPUT_PULLUP);
   pinMode(pinout[(int)PinFunction::DATA],   INPUT_PULLUP);
@@ -15,7 +15,6 @@ void DialDevice::init() {
   // assume the recent past was boring.
   clock = true;
 }
-
 
 bool DialDevice::clock_pin() const {
   return digitalRead(pinout[(int)PinFunction::CLOCK]);

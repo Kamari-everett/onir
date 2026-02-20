@@ -5,7 +5,7 @@
 class DialDevice {
 public:
   DialDevice() {}
-  DialDevice(int p[(int)PinFunction::END]);
+  DialDevice(Interface p);
 
   void set_pinout(int* p) { pinout = p; };
   void init();

@@ -1,3 +1,5 @@
 #include "onir.h"
 
-int init_interface[(int)PinFunction::END];
+Interface init_interface;
+
+int interface_size = (int)PinFunction::END;
