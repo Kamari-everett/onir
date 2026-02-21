@@ -23,6 +23,16 @@ It particularly kept trying to push the Wire code further up- and down-stack and
 
 It was, however, fairly useful for writing pretty-print functions and other such utilities. And I half-expect that it will spot the pointer error crashing the demo immediately -- it's fairly good with that kind of thing.
 
+--
+
+(later)
+
+Fix missing-null-terminator and divide-by-zero errors.
+
+As predicted, I did a lot of squinting and rubbing my forehead while the bot fretted about the wisdom of using pointers, and possible I2C race conditions (some seemingly involving future client code reaching back through a temporal-address error and crashing my present-day Arduino). Also as predicted, once I pasted the specific code problem (its pretty print method exposed my lack of null-terminator in an array I'd just been treating as a block of four small numbers) it spotted the problem right away and had me immediately nodding agreement.
+
+Also fixed another silly error in a previously-disused codepath. (They don't even let you divide by zero in python!)
+
 
 2026-02-20:
 

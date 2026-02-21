@@ -77,7 +77,7 @@ private:
       put_char(i, 0);  // 0 gives a blank screen
     }
     if ((nnn == 0) && !SCREEN_SHOW_ZERO) return;
-    int sign = nnn / absv(nnn);
+    int sign = nnn ? nnn / absv(nnn) : 0;
     if (sign < 0) {
       put_char(0, (int)('-'));
     }

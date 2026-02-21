@@ -21,9 +21,9 @@ static char safe(char c) {
   return c;
 }
 
-static unsigned long checksum_io(const IOState& s) {
+static long checksum_io(const IOState& s) {
   const byte* p = (const byte*)&s;
-  unsigned long sum = 0;
+  long sum = 0;
   for (int i = 0; i < (int)sizeof(IOState); ++i)
     sum += p[i];
   return sum;
@@ -35,7 +35,6 @@ static bool prints(char c) {
 }
 
 static void print_screen(const ScreenState& s) {
-
   bool printable = true;
   for (int i = 0; i < 4; ++i) {
     if (!prints(s.chars[i])) {
@@ -46,26 +45,23 @@ static void print_screen(const ScreenState& s) {
 
   if (printable) {
     char buf[5];
-    for (int i = 0; i < 4; ++i)
-      buf[i] = s.chars[i];
+    for (int i = 0; i < 4; ++i) {
+      char ch = s.chars[i];
+      buf[i] = ch ? ch : ' ';
+    }
     buf[4] = '\0';
-
-    Serial.print('"');
-    Serial.print(buf);
-    Serial.print('"');
     return;
   }
 
   // mixed / non-printable case
   Serial.print('{');
   for (int i = 0; i < 4; ++i) {
-
     if (prints(s.chars[i])) {
       Serial.print('\'');
       Serial.print(s.chars[i]);
       Serial.print('\'');
     } else {
-      Serial.print((int)(uint8_t)s.chars[i]);
+      Serial.print(String((int)(byte)s.chars[i]));
     }
 
     if (i != 3) Serial.print(", ");

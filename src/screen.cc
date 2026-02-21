@@ -27,6 +27,7 @@ String chars(ScreenState state) {
   for (int i = 0; i < 4; i++) {
     result[i] = (char)state.chars[i];
   }
+  result[5] = 0;
   return String(result);
 }
 
