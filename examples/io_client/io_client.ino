@@ -1,6 +1,9 @@
+// Reads dial from channel 9 and writes the value to its screen.
+
 #include "onir.h"
 #include "control.h"
 #include "log.h"
+#include "board.h"
 
 #include "Wire.h"
 

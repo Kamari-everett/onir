@@ -7,6 +7,36 @@ The name 'onir' may sound dreamy, but it's also short for "oh, nothing I'd recom
 
 # updates
 
+2026-02-22:
+
+Scrolling-message demo for Board, a replacement for Display. (though more on those names below.)
+
+This one took longer than seems reasonable given the line count. There was a long diversion with the robot into function pointers and proposals for abstract class handlers over my desire to interact with the Control class like I would in Lisp, Python, or even Java (create a little iterable object representing just the working clients and mostly interact with that). (same link, updated).
+
+C++ offers dozens of plausible-looking ways of doing this (surely hundreds if we use a more kitchen-sink desktop development focused form of the language), of which some fraction will compile. (and it can seem like a vanishing fraction if you're new here.) of those, most will either blow up on you immediately, or *sometimes* work for a while before their behavior decays and your program's behavior slowly goes more non-linear until it crashes.
+
+I tried to get the chatbot to give me a way to iterate like this that it would approve of in terms of easy-to-read and safe-to-use that beat what I would have done as a kid (allocate storage in place; loop through to copy in the pointers I wanted.)
+
+When all we needed was zero-argument lambdas (I used to call them 'thunks') this worked okay-ish, modulo corp-speak names from the robot (it: 'ClientFn' would be a good name!; me: we'll go with 'Command'.), and epic struggle with C++'s abstract function syntax on my end (yes, it still needs a return type.). But once I wanted multi-argument functions that abstraction started to break down.
+
+In the end it realized just after I did that the correct answer was to lean harder into the 'drawers of pointers, numbered by channel (and remember to clean them out first!)' metaphor. Rather than stepping forward into the late-century world of lambdas and abstract classes, the readable solution here was from the 1960s: they're pointers, just leave out the zeros and then use them, no need for an intermediate container.
+
+Anyway, that plus a little "did you initialize everything? what if we reboot?" later it's scrolling on multiple channels again. No dial interaction with this one, so I won't remove the other demo yet, but I think the clock's ticking on that now.
+
+Once I delete that code, I want to rename a bunch of stuff. The lab has little 4-digit seven segment displays in an almost unbounded quantity. (My central goal here is to get them into my students' projects without the students giving up because of C++ and other distractions.) I initially called these 'Display' because the most common-and-correct name for them is 'seven segment displays'.
+
+But then my students kept calling them screens. So Screen it was. Then I called a collection of screens a Display (seemed reasonable enough). But I didn't really like that name, so I replaced it with Board.
+
+Now that there's an abstraction almost ready to replace Display, I think I want to actually *flip* these names. The Screen is the software object I want the students to be interacting with. The Screen can run multiple Displays.
+
+This kind of big rename is the sort of change you have to do on its own, or everything will go haywire. It's not time yet, but I'd like to get this handled today.
+
+First though, this thing is acting a little funny still. Bit more debugging needed. But I wanted to capture the point when the device started scrolling again.
+
+Next main step (after debugging, before renaming) is to add the remote dial response back in. If I can get that going on more than one screen (should be possible now if all the parts are moving like I want) then that'll be solid progress.
+
+Beyond that, if I can rename the classes and then get the local client working on channel zero without having to change much of anything? For me, that would count as a win.
+
 2026-02-21:
 
 Add IODevice and Control/Client, with demo sketches (remote device dial & screen).

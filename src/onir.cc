@@ -1,5 +1,7 @@
 #include "onir.h"
+
 #include "control.h"
+#include "board.h"
 
 #include "Arduino.h"
 
@@ -9,9 +11,29 @@ int interface_size = (int)PinFunction::END;
 
 Onir::Onir(int* channels, int count) {
   control = new Control(channels, count);
+  board = new Board(control);
 }
 
+void Onir::display(char* message) {
+  board->display(message);
+}
 
-Onir::update() {
+void Onir::act() {
+  if (go()) {
+    board->pan(1);
+  }
+}
+
+void Onir::update() {
   control->update();
+  act();
+}
+
+int Onir::step() {
+  return millis() / step_ms_;
+}
+
+bool Onir::go() {
+  int old_step = step_;
+  return old_step != (step_ = step());
 }

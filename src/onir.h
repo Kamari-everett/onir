@@ -71,10 +71,19 @@ struct IOState {
 };
 
 class Control;
+class Board;
 class Onir {
 public:
   Onir(int* channels, int count);
-  update();
+  void Onir::display(char* message);
+  void update();
   Control* control;
+  Board* board;
+  int step();
+  bool go();
+private:
+  void act();
+  const int step_ms_ = 1000;
+  int step_ = -1;
 };
-  
+
