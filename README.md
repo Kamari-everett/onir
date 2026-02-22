@@ -37,6 +37,12 @@ Next main step (after debugging, before renaming) is to add the remote dial resp
 
 Beyond that, if I can rename the classes and then get the local client working on channel zero without having to change much of anything? For me, that would count as a win.
 
+--
+
+After pushing the change above I pasted the diff into the AI, and modulo some formatting-based nonsense (can I view the diff raw, or do they hide that?) it was like, "Fix these three bugs (off-by-one; zombie debugging code; just fine, as it figured out mid-explanation) and this spelling error." (except after C, indeed...) And just like it said on the tin, after dealing with the things it instantly listed out for me, the demo went from "does something possibly interesting" to "boringly does what I wanted".
+
+So, another win for team robot.
+
 2026-02-21:
 
 Add IODevice and Control/Client, with demo sketches (remote device dial & screen).

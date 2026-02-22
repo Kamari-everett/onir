@@ -60,10 +60,7 @@ private:
       if (Client* client = control_->clients[channel]) {
         char ch;
         for (int i = 0; i < 4; i++) {
-          ch = at(i + positions_[channel] + index_);
-          if (ch != ' ') {
-            client->screen.put_char(i, at(i + positions_[channel] + index_));
-          }
+          client->screen.put_char(i, at(i + positions_[channel] + index_));
         }
       }
     }
@@ -86,10 +83,10 @@ private:
   int record() {                                // may pad start/end:
     int reciept = length(message_);             // find the 0
     int length = 0;
-    if (reciept and message_[0] != ' ') {
+    if (receipt and message_[0] != ' ') {
       display_[length++] = ' ';                 // left-pad
     }
-    for (int i = 0; (i < reciept) and (length < WIDTH - 1);) {
+    for (int i = 0; (i < receipt) and (length < WIDTH - 1);) {
       display_[length++] = message_[i++];       // copy message
     }
     while (length < 4) {                        // pad to 4
@@ -112,7 +109,7 @@ private:
 
   static int length(const char* str) {
     int length = 0;
-    while (str and str[length++]) { }
+    while (str and str[length]) { length++; }
     return length;
   }
   
