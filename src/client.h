@@ -9,4 +9,6 @@ public:
   void check();
   Dial dial;
   Screen screen;
+
+  IOState local_;  // for logging; use dial and screen directly.
 };

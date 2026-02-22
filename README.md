@@ -47,6 +47,20 @@ So, another win for team robot. (link updated: https://chatgpt.com/share/699853f
 
 (and yes, after misspelling 'receipt' I did check my work on 'miscellaneous'. And 'misspelling'. I've gotten used to those little red lines! but I haven't gone looking for that option in Emacs. yet.)
 
+--
+
+Device dial now adjusts that device's screen in Display.
+
+If I had better VC discipline it would be clearer how little was really needed to get this going. The key change was adding the dial read in just before the call to at(), plus the required zeroing.
+
+That got the board responding to the dial, but haltingly, because it didn't have an update function. Or rather, the update function (present) was private, and called sparingly, I think because the chat bot seemed to feel sensitive about doing that too often? So the only thing that made it update was when Onir asked it to pan the message.
+
+But the bot has often been confused about what is and isn't going to be making Wire calls. All the Board does is write to some storage in the Screen clients, which themeselves ignore all these goings-on and keep their own schedule for making phone calls. So right here I think it's fine to just bang it.
+
+The rest of the change is more of this and that: add the option to keep all the screens at the start instead of fanning them out. Add some logging code. You know. Main thing is, the demo works! (but not on channel 8? odd, but something for later I think,
+
+--
+
 2026-02-21:
 
 Add IODevice and Control/Client, with demo sketches (remote device dial & screen).

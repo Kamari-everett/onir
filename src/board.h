@@ -21,14 +21,27 @@ public:
 
   void clear() {
     erase();
-    fan();
+    if (fan_start_) {
+      fan();
+    }
+    for (Client* client : control_->clients) {
+      if (client) {
+        client->dial.zero();
+      }
+    }
+  }
+
+  void fan_start(bool b) {
+    fan_start_ = b;
   }
   
   void erase() {
     for (int i = 0; i < WIDTH; i++) {
       display_[i] = 0;
+      positions_[i] = 0;
     }
     message_ = 0;
+    index_ = 0;
   }
     
   void display(const char* message) {
@@ -49,21 +62,25 @@ public:
 
   int index() const { return index_; }
   int width() const { return length(display_); }
+
+  void present() {
+    for (int channel = 0; channel < BANDS; channel++) {
+      if (Client* client = control_->clients[channel]) {
+        for (int i = 0; i < 4; i++) {
+          int position = positions_[channel];      // channel position
+          position += i;
+          position += index_;                      // global offset
+          position += client->dial.value();     // change from dial
+          // late-read pattern restricts use of dial value to this spot. (no branches below.)
+          client->screen.put_char(i, at(position));
+        }
+      }
+    }
+  }
   
 private:
   char at(int index) {
     return display_[mod(width(), index)];;
-  }
-  
-  void present() {
-    for (int channel = 0; channel < BANDS; channel++) {
-      if (Client* client = control_->clients[channel]) {
-        char ch;
-        for (int i = 0; i < 4; i++) {
-          client->screen.put_char(i, at(i + positions_[channel] + index_));
-        }
-      }
-    }
   }
   
   void fan() {  // Sequence channel offsets from zero.
@@ -118,5 +135,6 @@ private:
   char display_[WIDTH];
   int index_;
   int positions_[BANDS];
+  bool fan_start_ = true;
   
 };

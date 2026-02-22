@@ -21,12 +21,16 @@ void Onir::display(char* message) {
 void Onir::act() {
   if (go()) {
     board->pan(1);
+    if (control->clients[9]) {
+      pp(control->clients[9]->local_);
+    }
   }
 }
 
 void Onir::update() {
   control->update();
   act();
+  board->present();
 }
 
 int Onir::step() {
