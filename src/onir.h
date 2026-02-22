@@ -77,12 +77,13 @@ public:
   Onir(int* channels, int count);
   void Onir::display(char* message);
   void update();
+  int step();
+
   Control* control;
   Board* board;
-  int step();
-  bool go();
 private:
   void act();
+  bool go();
   const int step_ms_ = 1000;
   int step_ = -1;
 };

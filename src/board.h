@@ -81,7 +81,7 @@ private:
   }
 
   int record() {                                // may pad start/end:
-    int reciept = length(message_);             // find the 0
+    int receipt = length(message_);             // find the 0
     int length = 0;
     if (receipt and message_[0] != ' ') {
       display_[length++] = ' ';                 // left-pad
