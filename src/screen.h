@@ -14,9 +14,11 @@ class ScreenDevice;
 // Client for seven-segment screen.
 class Screen {
 public:
-  Screen() = default;
+  Screen() {
+    clear();
+  }
   
-  Screen(int channel) {
+  Screen(int channel) : Screen() {
     if (channel > MIN_CHANNEL) {
       init(channel);
     }

@@ -1,5 +1,6 @@
 #include "selector.h"
 
+#include "Arduino.h"
 
 Selector::Selector(int (*p)[(int)PinFunction::END]) {
   pinout = p;

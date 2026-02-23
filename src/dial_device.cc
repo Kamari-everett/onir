@@ -1,6 +1,6 @@
 #include "dial_device.h"
 
-#include <Arduino.h>
+#include "Arduino.h"
 
 DialDevice::DialDevice(Interface p) : DialDevice() {
     set_pinout(p);

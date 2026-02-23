@@ -1,8 +1,8 @@
 #include "dial.h"
 #include "dial_device.h"
 
-#include <Arduino.h>
-#include <Wire.h>
+#include "Arduino.h"
+#include "Wire.h"
 
 Dial::Dial() { }
 

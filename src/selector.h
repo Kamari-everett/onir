@@ -1,5 +1,3 @@
-#include <Arduino.h>
-
 #include "onir.h"
 
 #include "dial.h"

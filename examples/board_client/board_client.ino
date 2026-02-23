@@ -5,13 +5,13 @@
 
 #include "Wire.h"
 
-
-int channels[3] = { 8, 9, 10 };
-Onir onir(channels, 3);
+const int N_CHANNELS = 5;
+int channels[N_CHANNELS] = { 8, 9, 10, 11, 12 };
+Onir onir(channels, N_CHANNELS);
 
 IOState state;
 
-const char message[16] = "ko labs -- onir --";
+const char message[64] = "ko labs -- onir 1 2 3 4 5 6 7 8 9 10";
 
 void setup() {
   Serial.begin(9600);

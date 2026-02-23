@@ -1,6 +1,6 @@
 // Binds Wire callbacks to addresses in IODevice::state.
 
-#include <Wire.h>
+#include "Wire.h"
 
 #include "io_device.h"
 #include "uno_pinout.h"
