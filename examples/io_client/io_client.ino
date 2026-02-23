@@ -3,7 +3,6 @@
 #include "onir.h"
 #include "control.h"
 #include "log.h"
-#include "board.h"
 
 #include "Wire.h"
 

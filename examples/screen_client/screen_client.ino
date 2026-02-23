@@ -1,7 +1,7 @@
 #include "onir.h"
 #include "control.h"
 #include "log.h"
-#include "board.h"
+#include "screen.h"
 
 #include "Wire.h"
 
@@ -17,7 +17,7 @@ void setup() {
   Serial.begin(9600);
   Serial.println("start");
   log_winks = 25;
-  onir.board->display(message);
+  onir.screen->display(message);
   Wire.begin();
 }
 

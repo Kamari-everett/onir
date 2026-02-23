@@ -70,7 +70,7 @@ struct IOState {
 };
 
 class Control;
-class Board;
+class Screen;
 
 class Onir {
 public:
@@ -81,7 +81,7 @@ public:
   int step();
 
   Control* control;
-  Board* board;
+  Screen* screen;
 
 private:
   void act();

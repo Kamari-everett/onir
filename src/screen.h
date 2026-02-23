@@ -7,12 +7,12 @@
 #define WIDTH 256
 
 // Splits a string across a handful of displays and keeps them refreshed.
-class Board {
+class Screen {
 
 public:
-  Board() {}
+  Screen() {}
   
-  Board(Control* control) : control_(control) {
+  Screen(Control* control) : control_(control) {
     clear();
   }
 
