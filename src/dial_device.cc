@@ -3,8 +3,8 @@
 #include "Arduino.h"
 
 DialDevice::DialDevice(Interface p) : DialDevice() {
-    set_pinout(p);
-  }
+  set_pinout(p);
+}
 
 void DialDevice::set_pinout(Interface p) {
   pinout = p;
@@ -38,9 +38,17 @@ void DialDevice::read(DialState& state) {
   if (clock != old_clock) {
     if (clock) {  // rising edge only
       if (data_pin()) {
-        state.count--;
+        if (switch_pressed()) {
+          state.down_count--;
+        } else {
+          state.count--;
+        }
       } else {
-        state.count++;
+        if (switch_pressed()) {
+          state.down_count++;
+        } else {
+          state.count++;
+        }
       }
     }
   }

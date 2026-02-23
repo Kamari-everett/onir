@@ -7,11 +7,22 @@ Selector::Selector(int (*p)[(int)PinFunction::END]) {
 }
 
 void Selector::channel_up() {
-  if (channel < max_channel) channel++;
+  if (channel < max_channel) {
+    channel++;
+  } else {
+    Serial.print("max channel = ");
+    echo();
+  }
 }
 
 void Selector::channel_down() {
-  if (channel > min_channel) channel--;
+  if (channel > min_channel)  {
+    channel--;
+  } else {
+    Serial.println();
+    Serial.print("min channel = ");
+    echo();
+  }
 }
 
 char Selector::hex_digit(int value) {
@@ -29,6 +40,7 @@ void Selector::display_channel() {
 
 
 int Selector::get_channel() {
+  Serial.print("channel: ");
   Dial local_dial;
   if (pinout) {
     local_dial = Dial(pinout);
@@ -36,10 +48,9 @@ int Selector::get_channel() {
   display_channel();
   long dial_value = dial->value();
   dial->update();
-  while (not dial->signal()) {
+  while (not dial->press()) {
     dial->update();
     if (dial->value() != dial_value) {
-      Serial.println(dial->value());
       if (dial->value() > dial_value) {
         channel_up();
       }
@@ -49,10 +60,37 @@ int Selector::get_channel() {
       dial_value = dial->value();
       
       display_channel();
+      echo();
+      Serial.print("? ");
     }
     display->refresh();
   }
-  Serial.println("selected: " + String(channel));
+  echo();
+  Serial.println(".");
+  Serial.print("channel ");
+  Serial.println(channel);
   dial->zero();
   return channel;  
+}
+
+int Selector::count() {
+  if (button_down) {
+    return dial->down_value();
+  } else {
+    return dial->value();
+  }
+}
+
+bool Selector::done() {
+  if (button_down) {
+    return dial->release();
+  } else {
+    return dial->press();
+  }
+}
+
+void Selector::echo() {
+  for (int i = 0; i < 4; i++) {
+    Serial.print(display->state.chars[i]);
+  }
 }

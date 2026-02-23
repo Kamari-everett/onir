@@ -23,13 +23,11 @@ void Dial::attach(DialDevice* d) {
 }
 
 void Dial::update() {
-  if (not switch_ready and not state.button) {
-    switch_ready = true;
-  }
   if (device) {
     device->read(state);
+    return;
   }
-  if (channel >= 0) {
+  if (channel >= MIN_CHANNEL) {
     Wire.requestFrom(channel, (int)sizeof(DialState));
     if (Wire.available() == sizeof(DialState)) {
       Wire.readBytes((char*)&state, sizeof(DialState));
@@ -41,17 +39,26 @@ void Dial::update() {
   if (millis() % 1000 == 0) {
     Serial.println("Dial not configured.");
   }
-
 }
 
-bool Dial::signal() {
-    if (switch_ready and state.button) {
-        switch_ready = false;
-        return true;
-    }
-    return false;
+bool Dial::press() {
+  if (press_ready and state.button) {
+    press_ready = false;
+    return true;
+  }
+  if (not press_ready and not state.button) {
+    press_ready = true;
+  }
+  return false;
 }
 
-long Dial::value() const {
-  return state.count - zero_offset;
+bool Dial::release() {
+  if (release_ready and not state.button) {
+    release_ready = false;
+    return true;
+  }
+  if (not release_ready and state.button) {
+    release_ready = true;
+  }
+  return false;
 }

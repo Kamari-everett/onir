@@ -1,5 +1,7 @@
 #pragma once
 
+#define MIN_CHANNEL 8
+
 // names for logical pin functions.
 
 enum class PinFunction {

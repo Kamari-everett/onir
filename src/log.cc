@@ -74,6 +74,13 @@ void print_display(const DisplayState& display) {
   Serial.print('}');
 }
 
+void left_pad(int v) {
+  // left pad to width 4 incl sign
+  if (v >= 0) Serial.print(' ');
+  if (v > -100 && v < 100) Serial.print(' ');
+  if (v > -10  && v < 10)  Serial.print(' ');
+}
+
 void print_io(const IOState& state) {
 
   static unsigned int log_id = 0;
@@ -88,14 +95,13 @@ void print_io(const IOState& state) {
   Serial.print(state.display.point);
   Serial.print("}, d: {v: ");
 
-  long v = state.dial.count;
-
-  // left pad to width 4 incl sign
-  if (v >= 0) Serial.print(' ');
-  if (v > -100 && v < 100) Serial.print(' ');
-  if (v > -10  && v < 10)  Serial.print(' ');
-
+  int v = state.dial.count;
+  left_pad(v);
   Serial.print(v);
+  Serial.print("; d: ");
+  int d = state.dial.down_count;
+  left_pad(d);
+  Serial.print(d);
 
   Serial.print("; b: ");
   Serial.print(state.dial.button ? 1 : 0);
@@ -105,7 +111,6 @@ void print_io(const IOState& state) {
   Serial.print(millis());
   Serial.println(")");
 }
-
 
 // local copy of dial and display contents (not definitive -- just read the dial!)
 void mirror_device_clients(Client* client) {

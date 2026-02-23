@@ -17,25 +17,35 @@ public:
   }
 
   void update();
-  bool signal();
+  bool press();
+  bool release();
 
-  long value() const;
+  int value() const {
+    return state.count - zero_offset;
+  }
   
+  int down_value() const {
+    return state.down_count - down_offset;
+  }
+
   bool button() const {
     return state.button;
   }
 
   void zero() {
     zero_offset = state.count;
+    down_offset = state.down_count;
   }
 
   DialState state;
 
 private:
   int channel = -1;  // -1 means unset
-  long zero_offset = 0;
+  int zero_offset = 0;
+  int down_offset = 0;
   
-  bool switch_ready = false;
+  bool press_ready = false;
+  bool release_ready = false;
 
   DialDevice* device = nullptr;
 };
