@@ -1,9 +1,9 @@
-#include "screen_device.h"
+#include "display_device.h"
 
 #include "Arduino.h"
 #include "Wire.h"
 
-ScreenDevice::ScreenDevice() {
+DisplayDevice::DisplayDevice() {
   for (int i = 0; i < 7; i++) {
     segments[i] = (PinFunction)(i + (int)PF::DD_A);
   }
@@ -17,7 +17,7 @@ ScreenDevice::ScreenDevice() {
   set_char_masks();
 }
 
-void ScreenDevice::set_pinout(Interface pinout) {
+void DisplayDevice::set_pinout(Interface pinout) {
   for (int i = (int)PinFunction::DD_A; i <= (int)PinFunction::DD_4; i++) {
     device_pinout[i] = pinout[i];
     pinMode(pinout[i], OUTPUT);
@@ -25,7 +25,7 @@ void ScreenDevice::set_pinout(Interface pinout) {
   clear();
 }
 
-void ScreenDevice::clear() {
+void DisplayDevice::clear() {
   for (PinFunction segment : segments) {
     pin_low(segment);
   }
@@ -35,29 +35,29 @@ void ScreenDevice::clear() {
   }
 }
 
-int ScreenDevice::position_to_show() {
+int DisplayDevice::position_to_show() {
   return (millis() % ms_per_cycle) / ms_per_digit;
 }
 
-void ScreenDevice::pin_high(PinFunction fn) {
+void DisplayDevice::pin_high(PinFunction fn) {
   set_fn_pin(fn, HIGH);
 }
 
-void ScreenDevice::pin_low(PinFunction fn) {
+void DisplayDevice::pin_low(PinFunction fn) {
   set_fn_pin(fn, LOW);
 }
 
-void ScreenDevice::set_fn_pin(PinFunction fn, bool val) {
+void DisplayDevice::set_fn_pin(PinFunction fn, bool val) {
   digitalWrite(device_pinout[(int)fn], val);
 }
 
-void ScreenDevice::set_point_pin(bool val) {
+void DisplayDevice::set_point_pin(bool val) {
   digitalWrite(device_pinout[(int)PF::DD_P], val);
 }
 
-void ScreenDevice::refresh() {
+void DisplayDevice::refresh() {
   int position = position_to_show();
-  if (position != position_showing) {  // redraw screen
+  if (position != position_showing) {  // redraw display
     position_showing = position;
     clear();
     for (PinFunction segment : segments) {

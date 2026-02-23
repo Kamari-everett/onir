@@ -2,6 +2,6 @@
 
 IODevice::IODevice() {
   dial = new DialDevice();
-  screen = new ScreenDevice();
+  display = new DisplayDevice();
 
 }

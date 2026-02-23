@@ -21,10 +21,10 @@ char Selector::hex_digit(int value) {
 }
 
 void Selector::display_channel() {
-  screen->put_char(0, '0');
-  screen->put_char(1, 'x');
-  screen->put_char(2, hex_digit(channel / 16));
-  screen->put_char(3, hex_digit(channel % 16));
+  display->put_char(0, '0');
+  display->put_char(1, 'x');
+  display->put_char(2, hex_digit(channel / 16));
+  display->put_char(3, hex_digit(channel % 16));
 }
 
 
@@ -50,7 +50,7 @@ int Selector::get_channel() {
       
       display_channel();
     }
-    screen->refresh();
+    display->refresh();
   }
   Serial.println("selected: " + String(channel));
   dial->zero();

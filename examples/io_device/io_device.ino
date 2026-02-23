@@ -7,8 +7,8 @@
 #include "selector.h"
 #include "log.h"
 
-ScreenDevice device;
-Screen screen;
+DisplayDevice device;
+Display display;
 
 int* pinout = set_uno_pinout(init_interface);
 IODevice io;
@@ -17,11 +17,11 @@ int channel;
 
 void on_receive(int n_bytes) {
   int n = n_bytes;
-  if (n > (int)sizeof(ScreenState)){
+  if (n > (int)sizeof(DisplayState)){
     Serial.println("Format error!");
-    n = (int)sizeof(ScreenState);
+    n = (int)sizeof(DisplayState);
   }
-  Wire.readBytes((byte*)&io.state.screen, n);
+  Wire.readBytes((byte*)&io.state.display, n);
 }
 
 void on_request() {
@@ -38,9 +38,9 @@ void setup() {
   device.set_pinout(pinout);
   dial_device.set_pinout(pinout);
   dial.attach(&dial_device);
-  screen.attach(&device);
-  screen.set_point(-1);
-  channel = Selector(&dial, &screen).get_channel();
+  display.attach(&device);
+  display.set_point(-1);
+  channel = Selector(&dial, &display).get_channel();
 
   Serial.print("selected: ");
   Serial.println(channel);

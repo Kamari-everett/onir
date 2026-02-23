@@ -1,4 +1,4 @@
-// Reads dial from channel 9 and writes the value to its screen.
+// Reads dial from channel 9 and writes the value to its display.
 
 #include "onir.h"
 #include "control.h"
@@ -19,8 +19,8 @@ void setup() {
   Serial.println("start");
   log_winks = 10;  // I need a second.
   client = onir.control->clients[9];  // channel 9
-  client->screen.put_str("onir");
-  client->screen.clear_point();
+  client->display.put_str("onir");
+  client->display.clear_point();
   Wire.begin();
 }
 
@@ -34,14 +34,14 @@ void policy() {
     last_update_ms = millis();
 
     // get dial state from device.
-    // client->screen.set_value(millis());
-    client->screen.set_value(state.dial.count = client->dial.value());
+    // client->display.set_value(millis());
+    client->display.set_value(state.dial.count = client->dial.value());
 
-    // vvv copy _screen's_ contents to _local iostate_ (for debugging) vvv
+    // vvv copy _display's_ contents to _local iostate_ (for debugging) vvv
     for (int i = 0; i < 4; i++) {
-      state.screen.chars[i] = client->screen.state.chars[i];
+      state.display.chars[i] = client->display.state.chars[i];
     }
-    state.screen.point = client->screen.state.point;
+    state.display.point = client->display.state.point;
        // ^^^ remove above once no longer needed. (ideally before it causes a time-wasting bug.). ^^^
   }
   log(state);

@@ -1,5 +1,5 @@
-#include "screen.h"
-#include "screen_device.h"
+#include "display.h"
+#include "display_device.h"
 #include "dial.h"
 #include "dial_device.h"
 #include "uno_pinout.h"
@@ -8,8 +8,8 @@
 
 #include "Wire.h"
 
-ScreenDevice device;
-Screen screen;
+DisplayDevice device;
+Display display;
 
 int channel;
 
@@ -38,7 +38,7 @@ void clear() {
   }
 }
 
-void update_screen(int message_size) {
+void update_display(int message_size) {
   Wire.readBytes((byte*)&device.state, message_size);
   recieved = true;
 }
@@ -51,7 +51,7 @@ void init_channel(int channel) {
   Serial.println(start_millis);
 
   Wire.begin(channel);            // ready
-  Wire.onReceive(update_screen);  // go.
+  Wire.onReceive(update_display);  // go.
 }
 
 void check_cleanup() {
@@ -70,9 +70,8 @@ void setup() {
   device.set_pinout(pinout);
   dial_device.set_pinout(pinout);
   dial.attach(&dial_device);
-  screen.attach(&device);
-  screen.set_point(-1);  // curious, this. must look into it.
-  channel = Selector(&dial, &screen).get_channel();
+  display.attach(&device);
+  channel = Selector(&dial, &display).get_channel();
   Serial.print("selected: ");
   Serial.println(channel);
   init_channel(channel);

@@ -1,12 +1,12 @@
 #pragma once
 
-#include "screen.h"
+#include "display.h"
 #include "control.h"
 #include "log.h"
 
 #define WIDTH 256
 
-// Splits a string across a handful of screens and keeps them refreshed.
+// Splits a string across a handful of displays and keeps them refreshed.
 class Board {
 
 public:
@@ -69,7 +69,7 @@ public:
           position += index_;                      // global offset
           position += client->dial.value();     // change from dial
           // late-read pattern restricts use of dial value to this spot. (no branches below.)
-          client->screen.put_char(i, at(position));
+          client->display.put_char(i, at(position));
         }
       }
     }

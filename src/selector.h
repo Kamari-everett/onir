@@ -1,14 +1,14 @@
 #include "onir.h"
 
 #include "dial.h"
-#include "screen.h"
+#include "display.h"
 
-// uses a dial and screen to select a numerical I2C channel (int).
+// uses a dial and display to select a numerical I2C channel (int).
 class Selector {
 public:
-  Selector(Dial* d, Screen* s) {
+  Selector(Dial* d, Display* s) {
     dial = d;
-    screen = s;
+    display = s;
     channel = MIN_CHANNEL;
   }
 
@@ -21,14 +21,14 @@ private:
   int channel;
 
   Dial* dial = nullptr;
-  Screen* screen = nullptr;
+  Display* display = nullptr;
 
   int (*pinout)[(int)PinFunction::END];
   
   
   const int min_channel = 0x08;        // = 8 -- https://i2cdevices.org/addresses
   const int max_channel = 0x77;        // 0x77 = 119
-  // note: 192 - 8 = 184 = 8x23 => 32x23 char 'screen'
+  // note: 192 - 8 = 184 = 8x23 => 32x23 char 'display'
 
 
   char hex_digit(int value);

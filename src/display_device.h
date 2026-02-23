@@ -2,19 +2,19 @@
 
 #include "onir.h"
 
-#include "screen.h"
+#include "display.h"
 
 const int N_CHAR_MASKS = 128;  // space for all possible segment-sets.
 
 using PF = PinFunction;
 
 // Runs a 7 segment common cathode clock display.
-class ScreenDevice {
+class DisplayDevice {
 
 public:
-  ScreenDevice();
+  DisplayDevice();
 
-  void update(const ScreenState s) {
+  void update(const DisplayState s) {
     state = s;
   }
 
@@ -24,7 +24,7 @@ public:
 
   void refresh();
 
-  ScreenState state;
+  DisplayState state;
   
   void clear();
 

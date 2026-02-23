@@ -3,12 +3,12 @@
 
 #include "Arduino.h"
 
-Client::Client(int channel) : channel(channel), dial(channel), screen(channel) {
+Client::Client(int channel) : channel(channel), dial(channel), display(channel) {
 }
 
 void Client::update() {
   dial.update();
-  screen.refresh();
+  display.refresh();
 }
 
 

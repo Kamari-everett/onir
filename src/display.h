@@ -2,23 +2,22 @@
 
 #include "onir.h"
 
-// defines an abstract screen class. 
-// no hardware-level details belong here.
+// abstract interface for a seven-segment display
 
-#define SCREEN_DEVICE_CHANNEL 9  // 8 & 9 are just for your stuff.
-#define MIN_CHANNEL 8            // (https://i2cdevices.org/addresses)
-#define SCREEN_SHOW_ZERO true
+#define DISPLAY_DEVICE_CHANNEL 9  // 8 & 9 are just for your stuff.
+#define MIN_CHANNEL 8             // (https://i2cdevices.org/addresses)
+#define DISPLAY_SHOW_ZERO true
 
-class ScreenDevice;
+class DisplayDevice;
 
-// Client for seven-segment screen.
-class Screen {
+// Client for seven-segment display.
+class Display {
 public:
-  Screen() {
+  Display() {
     clear();
   }
   
-  Screen(int channel) : Screen() {
+  Display(int channel) : Display() {
     if (channel >= MIN_CHANNEL) {
       init(channel);
     }
@@ -26,7 +25,7 @@ public:
 
   void init(int channel);
 
-  void attach(ScreenDevice* d) {
+  void attach(DisplayDevice* d) {
     device = d;
   }
   
@@ -63,10 +62,10 @@ public:
   void refresh();
 
   // leave this alone.
-  ScreenState state;
+  DisplayState state;
 
 private:
-  ScreenDevice* device = nullptr;
+  DisplayDevice* device = nullptr;
   
   int channel = -1;  // don't call if nothing will answer. (the modem rings SYN for a minute.)
 
@@ -76,9 +75,9 @@ private:
 
   void set_digits(int nnn) {
     for (int i = 0; i < 4; i++) {
-      put_char(i, 0);  // 0 gives a blank screen
+      put_char(i, 0);  // 0 gives a blank display
     }
-    if ((nnn == 0) && !SCREEN_SHOW_ZERO) return;
+    if ((nnn == 0) && !DISPLAY_SHOW_ZERO) return;
     int sign = nnn ? nnn / absv(nnn) : 0;
     if (sign < 0) {
       put_char(0, (int)('-'));

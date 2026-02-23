@@ -36,10 +36,10 @@ static bool prints(char c) {
   return (c == 0 or (c >= 32 and c < 127));
 }
 
-void print_screen(const ScreenState& screen) {
+void print_display(const DisplayState& display) {
   bool printable = true;
   for (int i = 0; i < 4; ++i) {
-    if (!prints(screen.chars[i])) {
+    if (!prints(display.chars[i])) {
       printable = false;
       break;
     }
@@ -49,7 +49,7 @@ void print_screen(const ScreenState& screen) {
     Serial.print("\"");
     char buf[5];
     for (int i = 0; i < 4; ++i) {
-      char ch = screen.chars[i];
+      char ch = display.chars[i];
       buf[i] = ch ? ch : ' ';
     }
     buf[4] = '\0';
@@ -61,12 +61,12 @@ void print_screen(const ScreenState& screen) {
   // mixed / non-printable case
   Serial.print('{');
   for (int i = 0; i < 4; ++i) {
-    if (prints(screen.chars[i])) {
+    if (prints(display.chars[i])) {
       Serial.print('\'');
-      Serial.print(screen.chars[i]);
+      Serial.print(display.chars[i]);
       Serial.print('\'');
     } else {
-      Serial.print(String((int)(byte)screen.chars[i]));
+      Serial.print(String((int)(byte)display.chars[i]));
     }
 
     if (i != 3) Serial.print(", ");
@@ -83,9 +83,9 @@ void print_io(const IOState& state) {
   Serial.print(" {c: ");
   Serial.print(state.channel);
   Serial.print(", s: {m: ");
-  print_screen(state.screen);
+  print_display(state.display);
   Serial.print(", p: ");
-  Serial.print(state.screen.point);
+  Serial.print(state.display.point);
   Serial.print("}, d: {v: ");
 
   long v = state.dial.count;
@@ -107,11 +107,11 @@ void print_io(const IOState& state) {
 }
 
 
-// local copy of dial and screen contents (not definitive -- just read the dial!)
+// local copy of dial and display contents (not definitive -- just read the dial!)
 void mirror_device_clients(Client* client) {
   client->local_.channel = client->channel;
   memcpy(&client->local_.dial,   &client->dial.state,   sizeof(client->dial.state));
-  memcpy(&client->local_.screen, &client->screen.state, sizeof(client->screen.state));
+  memcpy(&client->local_.display, &client->display.state, sizeof(client->display.state));
 }
 
 void log_io(Client* client) {

@@ -1,21 +1,17 @@
-#include "screen.h"
+#include "display.h"
 
 #include "Arduino.h"
 #include "Wire.h"
 
-// XXX remove
-#include "log.h" 
-// XXX remove
+#include "display_device.h"
 
-#include "screen_device.h"
-
-void Screen::init(int c) {
+void Display::init(int c) {
   channel = c;
-  Serial.print("SCREEN: ");
+  Serial.print("DISPLAY: ");
   Serial.println(c);
 }
 
-void Screen::refresh() {
+void Display::refresh() {
   if ((long)millis() - last_update > UPDATE_MILLIS) {
     last_update = millis();
     send_update();
@@ -26,7 +22,7 @@ void Screen::refresh() {
   }
 }
 
-String chars(ScreenState state) {
+String chars(DisplayState state) {
   char result[5];
   for (int i = 0; i < 4; i++) {
     result[i] = (char)state.chars[i];
@@ -35,15 +31,15 @@ String chars(ScreenState state) {
   return String(result);
 }
 
-void Screen::send_update() {
+void Display::send_update() {
   if (channel < 0) return;
   Wire.beginTransmission(channel);
-  Wire.write((const byte*) &state, (int)sizeof(ScreenState));
+  Wire.write((const byte*) &state, (int)sizeof(DisplayState));
   Wire.endTransmission();
 }
 
 
-void Screen::update_local() {
+void Display::update_local() {
   if (device){
     device->update(state);  
   }

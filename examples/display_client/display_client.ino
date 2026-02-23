@@ -1,14 +1,14 @@
-#include "screen.h"
+#include "display.h"
 #include "Wire.h"
 
-Screen screen(SCREEN_DEVICE_CHANNEL);
+Display display(DISPLAY_DEVICE_CHANNEL);
 
 void banner() {
-  screen.put_str("onir");
+  display.put_str("onir");
 }
 
 void flash() {
-  screen.set_point((millis() / 1000) % 2 ? -1 : 1);
+  display.set_point((millis() / 1000) % 2 ? -1 : 1);
 }
 
 void setup() {
@@ -20,5 +20,5 @@ void setup() {
 
 void loop() {
   flash();
-  screen.refresh();
+  display.refresh();
 }
