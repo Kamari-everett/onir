@@ -9,7 +9,7 @@ public:
   Selector(Dial* d, Screen* s) {
     dial = d;
     screen = s;
-    channel = ONIR_CHANNEL;
+    channel = MIN_CHANNEL;
   }
 
   Selector(int (*p)[(int)PinFunction::END]);

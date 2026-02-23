@@ -1,6 +1,8 @@
 #include "log.h"
+#include "client.h"
 
 #include "Arduino.h"
+#include "string.h"
 
 int wink() { return millis() / 100; }  // a blink is 1/5 s. a wink is half a blink.
 // int log_winks = 600;  // give me a minute to think.
@@ -34,7 +36,7 @@ static bool prints(char c) {
   return (c == 0 or (c >= 32 and c < 127));
 }
 
-static void print_screen(const ScreenState& screen) {
+void print_screen(const ScreenState& screen) {
   bool printable = true;
   for (int i = 0; i < 4; ++i) {
     if (!prints(screen.chars[i])) {
@@ -104,5 +106,14 @@ void print_io(const IOState& state) {
   Serial.println(")");
 }
 
-void pp(const IOState& s) { print_io(s); }
 
+// local copy of dial and screen contents (not definitive -- just read the dial!)
+void mirror_device_clients(Client* client) {
+  client->local_.channel = client->channel;
+  memcpy(&client->local_.dial,   &client->dial.state,   sizeof(client->dial.state));
+  memcpy(&client->local_.screen, &client->screen.state, sizeof(client->screen.state));
+}
+
+void log_io(Client* client) {
+  mirror_device_clients(client);
+  print_io(client->local_); }

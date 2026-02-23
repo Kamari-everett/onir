@@ -3,6 +3,10 @@
 #include "Arduino.h"
 #include "Wire.h"
 
+// XXX remove
+#include "log.h" 
+// XXX remove
+
 #include "screen_device.h"
 
 void Screen::init(int c) {
@@ -41,6 +45,6 @@ void Screen::send_update() {
 
 void Screen::update_local() {
   if (device){
-  device->update(state);  
+    device->update(state);  
   }
 }

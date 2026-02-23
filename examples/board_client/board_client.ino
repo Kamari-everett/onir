@@ -11,7 +11,7 @@ Onir onir(channels, N_CHANNELS);
 
 IOState state;
 
-const char message[64] = "ko labs -- onir 1 2 3 4 5 6 7 8 9 10";
+const char message[64] = "ko labs -- onir --";
 
 void setup() {
   Serial.begin(9600);

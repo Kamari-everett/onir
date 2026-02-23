@@ -17,18 +17,19 @@ int channel;
 
 void on_receive(int n_bytes) {
   int n = n_bytes;
-  if (n > (int)sizeof(ScreenState))
+  if (n > (int)sizeof(ScreenState)){
+    Serial.println("Format error!");
     n = (int)sizeof(ScreenState);
-
+  }
   Wire.readBytes((byte*)&io.state.screen, n);
 }
 
 void on_request() {
-  Wire.write((byte*)&io.state.dial, (int)sizeof(DialState));
+  Wire.write((byte*)&io.state.dial, sizeof(DialState));
 }
 
 void setup() {
- Serial.begin(9600);
+  Serial.begin(9600);
   log_winks = 10;  // I need a second.
   Serial.println("starting io device");
   Dial dial;

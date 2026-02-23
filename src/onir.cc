@@ -21,8 +21,8 @@ void Onir::display(char* message) {
 void Onir::act() {
   if (go()) {
     board->pan(1);
-    if (control->clients[9]) {
-      pp(control->clients[9]->local_);
+    if (control->clients[8]) {
+      log_io(control->clients[8]);
     }
   }
 }

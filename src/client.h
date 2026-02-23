@@ -6,9 +6,9 @@ class Client {
 public:
   Client(int channel);
   void update();
-  void check();
   Dial dial;
   Screen screen;
+  int channel;
 
   IOState local_;  // for logging; use dial and screen directly.
 };

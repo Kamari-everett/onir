@@ -1,7 +1,5 @@
 #pragma once
 
-#define ONIR_CHANNEL 8
-
 // names for logical pin functions.
 
 enum class PinFunction {
@@ -73,15 +71,18 @@ struct IOState {
 
 class Control;
 class Board;
+
 class Onir {
 public:
   Onir(int* channels, int count);
   void Onir::display(char* message);
+
   void update();
   int step();
 
   Control* control;
   Board* board;
+
 private:
   void act();
   bool go();
