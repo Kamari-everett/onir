@@ -51,6 +51,6 @@ void policy() {
 
 void loop() {
   onir.update();
-  pp(state);
+  log_io(client);
   policy();
 }
