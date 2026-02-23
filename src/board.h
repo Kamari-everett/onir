@@ -4,8 +4,6 @@
 #include "control.h"
 #include "log.h"
 
-#include "Arduino.h"
-
 #define WIDTH 256
 
 // Splits a string across a handful of screens and keeps them refreshed.
@@ -15,7 +13,6 @@ public:
   Board() {}
   
   Board(Control* control) : control_(control) {
-    Serial.println("board");
     clear();
   }
 
@@ -113,8 +110,6 @@ private:
       display_[length++] = ' ';                 // right-pad
     }      
     display_[length] = 0;                       // terminate
-    Serial.print(length);
-    Serial.print(" ");
     return length;
   }
 

@@ -65,6 +65,7 @@ struct DialState {
 };
 
 struct IOState {
+  int channel = -1;
   ScreenState screen;
   DialState dial;
   ServoState servo;
