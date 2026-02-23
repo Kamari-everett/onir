@@ -19,7 +19,7 @@ public:
   }
   
   Screen(int channel) : Screen() {
-    if (channel > MIN_CHANNEL) {
+    if (channel >= MIN_CHANNEL) {
       init(channel);
     }
   }
