@@ -75,7 +75,10 @@ class Screen;
 class Onir {
 public:
   Onir(int* channels, int count);
+
+  void set_pinout(Interface pinout);
   void Onir::display(char* message);
+  
 
   void update();
   int step();

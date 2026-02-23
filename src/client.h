@@ -5,6 +5,7 @@
 class Client {
 public:
   Client(int channel);
+  Client(Interface pinout);
   void update();
   Dial dial;
   Display display;

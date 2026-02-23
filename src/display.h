@@ -17,10 +17,8 @@ public:
     clear();
   }
   
-  Display(int channel) : Display() {
-    if (channel >= MIN_CHANNEL) {
-      init(channel);
-    }
+  Display(int ch) : channel(ch) {
+    clear();
   }
 
   void init(int channel);

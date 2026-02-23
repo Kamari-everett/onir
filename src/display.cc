@@ -5,12 +5,6 @@
 
 #include "display_device.h"
 
-void Display::init(int c) {
-  channel = c;
-  Serial.print("DISPLAY: ");
-  Serial.println(c);
-}
-
 void Display::refresh() {
   if ((long)millis() - last_update > UPDATE_MILLIS) {
     last_update = millis();

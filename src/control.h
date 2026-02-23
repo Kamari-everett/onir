@@ -3,7 +3,7 @@
 #include "client.h"
 
 #define BANDS 16      // first eight spots unused. (https://i2cdevices.org/addresses)
-#define LOCAL_BAND 0  // zero = here  
+#define LOCAL 0       // zero = here  
 
 class Control {
 public:
@@ -11,6 +11,8 @@ public:
 
   void update();
   int count() {return count_;}
+
+  void set_pinout(Interface pinout);
 
   Client* clients[BANDS];
  

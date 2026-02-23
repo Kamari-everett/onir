@@ -4,7 +4,9 @@
 #include "Arduino.h"
 #include "Wire.h"
 
-Dial::Dial() { }
+Dial::Dial() {
+  zero();
+}
 
 Dial::Dial(int ch) : Dial() {
   set_channel(ch);

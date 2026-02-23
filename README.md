@@ -7,6 +7,14 @@ The name 'onir' may sound dreamy, but it's also short for "oh, nothing I'd recom
 
 # updates
 
+2026-02-23:
+
+Client dial scrolls device displays.
+
+This was the demo I was looking for, and it seems stable, so this is probably it for now. (maybe some cleanup later, who knows?) This part I got done myself, though I did give the bot regular updates. It was a lot like some interactions I've had with PMs -- tracking details, side conversations, general encouragement. (same thread)
+
+With the other cleanups finished this part landed in motion, ready to go on first boot. I can't ask for more than that.
+
 2026-02-22:
 
 Scrolling-message demo for Board, a replacement for Display. (though more on those names below.)

@@ -14,6 +14,10 @@ Onir::Onir(int* channels, int count) {
   screen = new Screen(control);
 }
 
+void Onir::set_pinout(Interface pinout) {
+  control->set_pinout(pinout);
+}
+
 void Onir::display(char* message) {
   screen->display(message);
 }

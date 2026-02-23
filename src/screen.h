@@ -64,10 +64,15 @@ public:
     for (int channel = 0; channel < BANDS; channel++) {
       if (Client* client = control_->clients[channel]) {
         for (int i = 0; i < 4; i++) {
-          int position = positions_[channel];      // channel position
-          position += i;
-          position += index_;                      // global offset
-          position += client->dial.value();     // change from dial
+          int position = positions_[channel];                      // channel position
+          position += i;                                           // digit offset
+          position += index_;                                      // pan offset
+          if (control_->clients[LOCAL]) {
+            position += control_->clients[LOCAL]->dial.value();    // control offset
+          }
+          if (channel != LOCAL) {
+            position += client->dial.value();                      // device offset
+          }
           // late-read pattern restricts use of dial value to this spot. (no branches below.)
           client->display.put_char(i, at(position));
         }
