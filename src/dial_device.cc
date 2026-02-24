@@ -2,7 +2,7 @@
 
 #include "Arduino.h"
 
-DialDevice::DialDevice(Interface p) : DialDevice() {
+DialDevice::DialDevice(Interface p, const Hardware& hardware) : hardware(hardware) {
   set_pinout(p);
 }
 

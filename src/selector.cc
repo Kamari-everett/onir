@@ -2,7 +2,7 @@
 
 #include "Arduino.h"
 
-Selector::Selector(int (*p)[(int)PinFunction::END]) {
+Selector::Selector(int (*p)[(int)PinFunction::END], const Hardware& hardware) : hardware(hardware) {
   button_down = false;
   pinout = p;
 }
@@ -42,10 +42,10 @@ void Selector::display_channel() {
 
 int Selector::get_channel() {
   Serial.print("channel: ");
-  Dial local_dial;
-  if (pinout) {
-    local_dial = Dial(pinout);
-  }
+  Dial local_dial(pinout, hardware);;
+  // TODO: breaks non-local selector dial. fix after interface/pinout is gone.
+//    local_dial = Dial(pinout, hardware);
+//  }
   display_channel();
   long value = dial->value();
   dial->update();

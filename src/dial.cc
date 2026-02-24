@@ -4,15 +4,16 @@
 #include "Arduino.h"
 #include "Wire.h"
 
-Dial::Dial() {
+Dial::Dial(const Hardware& hardware) : hardware(hardware) {
   zero();
 }
 
-Dial::Dial(int ch) : Dial() {
+Dial::Dial(int ch, const Hardware& hardware) : hardware(hardware) {
+  zero();
   set_channel(ch);
 }
 
-Dial::Dial(Interface pinout) {
+Dial::Dial(Interface pinout, const Hardware& hardware) : hardware(hardware) {
   attach(new DialDevice(pinout));
   zero();
 }

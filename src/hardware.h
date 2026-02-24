@@ -40,6 +40,10 @@ enum class PinFunction {
   
     };
 
-const int hardware_size = (int)PinFunction::END;  // TODO
+const int hardware_size = (int)PinFunction::END;  // TODO interface
 using Hardware = int[hardware_size];
 extern const Hardware no_hardware;
+
+// int attach(Hardware hardware, PinFunction fn, int pin) {
+//   return hardware[(int)fn] = pin;
+// }

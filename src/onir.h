@@ -38,7 +38,10 @@ class Screen;
 
 class Onir {
 public:
-  Onir(int* channels, int count);
+  Onir(int* channels, int count, const Hardware& hw = no_hardware);
+    //  Onir(int* channels, int count);
+
+//    hardware(hw);
 
   void set_pinout(Interface pinout);
   void Onir::display(char* message);
@@ -51,6 +54,7 @@ public:
   Screen* screen;
 
 private:
+  const Hardware& hardware;
   void act();
   bool go();
   const int step_ms_ = 1000;

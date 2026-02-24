@@ -8,14 +8,14 @@
 // uses a dial and display to select a numerical I2C channel (int).
 class Selector {
 public:
-  Selector(Dial* d, Display* s, bool button=false) {
+  Selector(Dial* d, Display* s, bool button=false, const Hardware& hardware = no_hardware) {
     dial = d;
     display = s;
     channel = MIN_CHANNEL;
     button_down=button;
   }
 
-  Selector(int (*p)[(int)PinFunction::END]);
+  Selector(int (*p)[(int)PinFunction::END], const Hardware& hardware = no_hardware); 
 
   void set_button(bool button) { button_down = button; }
 
@@ -40,6 +40,7 @@ private:
   char hex_digit(int value);
   void display_channel();
   void echo();
-
+  
+  const Hardware& hardware;
 };
 

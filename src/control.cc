@@ -3,7 +3,7 @@
 #include "Arduino.h"
 
 
-Control::Control(int* channels, int ct) {
+Control::Control(int* channels, int ct, const Hardware& hardware) : hardware(hardware) {
   count_ = ct;
   for (int i = 0; i < BANDS; i++) {
     clients[i] = 0;

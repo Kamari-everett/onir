@@ -7,7 +7,7 @@
 
 class Control {
 public:
-  Control(int* channels, int count);
+  Control(int* channels, int count, const Hardware& hardware = no_hardware);
 
   void update();
   int count() {return count_;}
@@ -18,6 +18,7 @@ public:
  
 private:
   int count_ = 0;
+  const Hardware& hardware;
 };
 
 

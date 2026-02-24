@@ -4,8 +4,8 @@
 
 class DialDevice {
 public:
-  DialDevice() {}
-  DialDevice(Interface p);
+  DialDevice(const Hardware& hardware = no_hardware) : hardware(hardware) {}
+  DialDevice(Interface p, const Hardware& hardware = no_hardware);
   void set_pinout(Interface p);
 
   void init();
@@ -19,4 +19,6 @@ private:
   bool clock_pin() const;
   bool data_pin() const;
   bool switch_pressed() const;
+
+  const Hardware& hardware;
 };

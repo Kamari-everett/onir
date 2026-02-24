@@ -6,9 +6,9 @@ class DialDevice;
 
 class Dial {
 public:
-  Dial();
-  Dial(int ch);
-  Dial(Interface pinout);
+  Dial(const Hardware& hw = no_hardware);
+  Dial(int ch, const Hardware& hw = no_hardware);
+  Dial(Interface pinout, const Hardware& hw = no_hardware);
 
   void attach(DialDevice* d);
   
@@ -48,4 +48,5 @@ private:
   bool release_ready = false;
 
   DialDevice* device = nullptr;
+  const Hardware& hardware;
 };
