@@ -3,6 +3,7 @@
 #include "Arduino.h"
 
 Selector::Selector(int (*p)[(int)PinFunction::END]) {
+  button_down = false;
   pinout = p;
 }
 
@@ -46,18 +47,18 @@ int Selector::get_channel() {
     local_dial = Dial(pinout);
   }
   display_channel();
-  long dial_value = dial->value();
+  long value = dial->value();
   dial->update();
-  while (not dial->press()) {
+  while (not done()) {
     dial->update();
-    if (dial->value() != dial_value) {
-      if (dial->value() > dial_value) {
+    if (count() != value) {
+      if (count() > value) {
         channel_up();
       }
-      if (dial->value() < dial_value) {
+      if (count() < value) {
         channel_down();
       }
-      dial_value = dial->value();
+      value = count();
       
       display_channel();
       echo();
@@ -75,6 +76,7 @@ int Selector::get_channel() {
 
 int Selector::count() {
   if (button_down) {
+    Serial.println(button_down);
     return dial->down_value();
   } else {
     return dial->value();

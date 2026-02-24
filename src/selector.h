@@ -1,3 +1,5 @@
+#pragma once
+
 #include "onir.h"
 
 #include "dial.h"
@@ -6,13 +8,16 @@
 // uses a dial and display to select a numerical I2C channel (int).
 class Selector {
 public:
-  Selector(Dial* d, Display* s, bool button_down=false) {
+  Selector(Dial* d, Display* s, bool button=false) {
     dial = d;
     display = s;
     channel = MIN_CHANNEL;
+    button_down=button;
   }
 
   Selector(int (*p)[(int)PinFunction::END]);
+
+  void set_button(bool button) { button_down = button; }
 
   int get_channel();
 

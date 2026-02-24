@@ -3,6 +3,7 @@
 #include "onir.h"
 #include "display_device.h"
 #include "dial_device.h"
+#include "selector.h"
 
 // I2C-ready device that runs a display and dial.
 //
@@ -27,6 +28,8 @@ public:
     dial->set_pinout(pinout);
   }
 
+  int reboot_channel = -1;
+
   void update() {
     // Update dial state from hardware
     dial->read(state.dial);
@@ -34,13 +37,19 @@ public:
     // Push display state to hardware (scan / refresh)
     display->state = state.display;
     display->refresh();
+
+    // if (state.dial.button) {
+    // nope!  Selector selector(&pinout);
+    //   selector.set_button(state.dial.button);
+    //   reboot_channel = selector.get_channel();
+    // }
   }
 
   IOState state;   // shared storage (transport reads/writes this)
 
 private:
   int* pinout = 0;
-
+  
   DialDevice* dial;
   DisplayDevice* display;
   

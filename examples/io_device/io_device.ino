@@ -17,7 +17,7 @@ int channel;
 
 void on_receive(int n_bytes) {
   int n = n_bytes;
-  if (n > (int)sizeof(DisplayState)){
+  if (n > (int)sizeof(DisplayState)) {
     Serial.println("Format error!");
     n = (int)sizeof(DisplayState);
   }
@@ -26,6 +26,13 @@ void on_receive(int n_bytes) {
 
 void on_request() {
   Wire.write((byte*)&io.state.dial, sizeof(DialState));
+}
+
+void start_channel() {
+  Wire.end();  // idempotent
+  Wire.begin(channel);
+  Wire.onReceive(on_receive);
+  Wire.onRequest(on_request);
 }
 
 void setup() {
@@ -40,18 +47,19 @@ void setup() {
   dial.attach(&dial_device);
   display.attach(&device);
   display.set_point(-1);
-  channel = Selector(&dial, &display).get_channel();
+  channel = Selector(&dial, &display, false).get_channel();
 
   Serial.print("selected: ");
   Serial.println(channel);
   io.set_pinout(pinout);
-
-  Wire.begin(channel);
-  Wire.onReceive(on_receive);
-  Wire.onRequest(on_request);
+  start_channel();
 }
 
 void loop() {
   io.update();
   log(io.state);
+  // if (io.reboot_channel > 0) {
+  //   channel = io.reboot_channel;
+  //   start_channel();
+  // }
 }
