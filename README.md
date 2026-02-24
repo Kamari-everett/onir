@@ -7,6 +7,22 @@ The name 'onir' may sound dreamy, but it's also short for "oh, nothing I'd recom
 
 # updates
 
+2026-02-24:
+
+Add hardware.h, meant to replace Interface* pinout mess.
+
+Last night I got stalled out trying to add some channel-swapping behavior by the usual "int* p vs int p[k]" / "what is this a pointer to again?" / "maybe I can cheat here. nope, now it spouts gibberish for five seconds, then boots normally and works for a while, then an guy shows up in an Uber with a Hawiaiian pizza demanding I sign a $1000 reciept." business.
+
+Only in C++, man. It's like, if we can't get proper closures AND we can't pass a fixed-size array without carefully stepping over various unlabeled trap-doors to Wonderland then what are we even *doing* in this neighborhood? 
+
+After extensive back-and-forth with the bot (more proposals of new levels of containers and abstract classes, and me saying "no std in arduino" for what feels like the nth time) I've decided the right way forward is to abandon the "yeah, we'll find a pinout somewhere, trust me" laissez faire of Interface* pinout for the strict constructor discipline of const Hardware& hardware; and dealing with it explicitly in every constructor. (Only in C++...)
+
+This also gives me a good opportunity to rename the abstraction, which had been bothering me. Asking the bot to guess the new name was a laugh though. it: "Hmm, you need some way to refer to the hardware. So how about Topology, or FunctionGrid? Am I getting warmer?" me: "hmm, not exactly...". (exact quotes available at usual link.)
+
+This will be several changes even if everything goes smoothly. There's (0) this one, add Hardware(just an array of fixed size that gets declared annoyingly as int[(int)PinFunction::END] -- gibberish to my students) and drop it in the root file. Next (1) thread a const Hardware& through all the constructors that will need it. Then (2) switch pin reads from the existing pinout_[PinFunction::MY_FN] method to the new bool get_pin(const Hardware& hardware, PinFunction fn). Last, (3) remove unused Interface/pinout code.
+
+Then maybe I can get my channel selector working *and* keep all these toes I feel so attached to.
+
 2026-02-23:
 
 Client dial scrolls device displays.
