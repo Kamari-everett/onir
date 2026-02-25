@@ -10,9 +10,11 @@
 class Screen {
 
 public:
-  Screen() {}
+  Screen(const Hardware& hw = no_hardware) {
+    clear();
+  }
   
-  Screen(Control* control) : control_(control) {
+  Screen(Control* control, const Hardware& hw = no_hardware) : control_(control), hardware(hw) {
     clear();
   }
 
@@ -136,5 +138,6 @@ private:
   int index_;
   int positions_[BANDS];
   bool fan_start_ = true;
-  
+
+  const Hardware& hardware;  
 };
