@@ -3,7 +3,7 @@
 #include "Arduino.h"
 #include "Wire.h"
 
-DisplayDevice::DisplayDevice() {
+DisplayDevice::DisplayDevice(const Hardware& hardware) : hardware(hardware) {
   for (int i = 0; i < 7; i++) {
     segments[i] = (PinFunction)(i + (int)PF::DD_A);
   }
@@ -48,11 +48,13 @@ void DisplayDevice::pin_low(PinFunction fn) {
 }
 
 void DisplayDevice::set_fn_pin(PinFunction fn, bool val) {
-  digitalWrite(device_pinout[(int)fn], val);
+  //digitalWrite(device_pinout[(int)fn], val);
+  digitalWrite(dispatch(hardware, fn), val);
 }
 
 void DisplayDevice::set_point_pin(bool val) {
-  digitalWrite(device_pinout[(int)PF::DD_P], val);
+//  digitalWrite(device_pinout[(int)PF::DD_P], val);
+  set_fn_pin(PF::DD_P, val);
 }
 
 void DisplayDevice::refresh() {

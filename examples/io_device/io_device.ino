@@ -46,15 +46,15 @@ void setup() {
   Dial dial;
   DialDevice dial_device(hardware);
   dial.attach(&dial_device);
-  display = new Display;
+  display = new Display(hardware);
 
-  device = new DisplayDevice;
+  device = new DisplayDevice(hardware);
   device->set_pinout(pinout);
   display = new Display;
   display->attach(device);
   display->set_point(-1);
 
-  channel = Selector(&dial, display, false).get_channel();
+  channel = Selector(&dial, display, false, hardware).get_channel();
   Serial.print("selected: ");
   Serial.println(channel);
 

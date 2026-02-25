@@ -2,5 +2,5 @@
 
 IODevice::IODevice(const Hardware& hardware) : hardware(hardware) {
   dial = new DialDevice(hardware);
-  display = new DisplayDevice();
+  display = new DisplayDevice(hardware);
 }

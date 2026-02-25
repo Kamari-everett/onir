@@ -5,6 +5,14 @@
 
 #include "display_device.h"
 
+Display::Display(const Hardware& hardware) : hardware(hardware) {
+  clear();
+}
+
+Display::Display(int ch, const Hardware& hardware) : channel(ch), hardware(hardware) {
+  clear();
+}
+
 void Display::refresh() {
   if ((long)millis() - last_update > UPDATE_MILLIS) {
     last_update = millis();

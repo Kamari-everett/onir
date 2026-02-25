@@ -13,13 +13,9 @@ class DisplayDevice;
 // Client for seven-segment display.
 class Display {
 public:
-  Display() {
-    clear();
-  }
+  Display(const Hardware& hardware = no_hardware);
   
-  Display(int ch) : channel(ch) {
-    clear();
-  }
+  Display(int ch, const Hardware& hw = no_hardware);
 
   void init(int channel);
 
@@ -101,6 +97,7 @@ private:
   
   void send_update();
   void update_local();
- 
+
+  const Hardware& hardware;
 };
 

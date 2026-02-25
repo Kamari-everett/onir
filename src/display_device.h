@@ -12,7 +12,7 @@ using PF = PinFunction;
 class DisplayDevice {
 
 public:
-  DisplayDevice();
+  DisplayDevice(const Hardware& hw = no_hardware);
 
   void update(const DisplayState s) {
     state = s;
@@ -129,6 +129,8 @@ private:
   void pin_low(PinFunction fn);
   void set_fn_pin(PinFunction fn, bool val);
   void set_point_pin(bool val);
+
+  const Hardware& hardware;
 };
 
 
