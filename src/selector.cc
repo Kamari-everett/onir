@@ -7,6 +7,15 @@ Selector::Selector(int (*p)[(int)PinFunction::END], const Hardware& hardware) : 
   pinout = p;
 }
 
+
+Selector::Selector(Dial* d, Display* s, bool button=false, const Hardware& hardware)
+  : hardware(hardware) {
+    dial = d;
+    display = s;
+    channel = MIN_CHANNEL;
+    button_down=button;
+  }
+
 void Selector::channel_up() {
   if (channel < max_channel) {
     channel++;

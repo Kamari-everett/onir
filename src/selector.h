@@ -8,12 +8,7 @@
 // uses a dial and display to select a numerical I2C channel (int).
 class Selector {
 public:
-  Selector(Dial* d, Display* s, bool button=false, const Hardware& hardware = no_hardware) {
-    dial = d;
-    display = s;
-    channel = MIN_CHANNEL;
-    button_down=button;
-  }
+  Selector(Dial* d, Display* s, bool button=false, const Hardware& hardware = no_hardware);
 
   Selector(int (*p)[(int)PinFunction::END], const Hardware& hardware = no_hardware); 
 

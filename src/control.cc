@@ -11,7 +11,7 @@ Control::Control(int* channels, int ct, const Hardware& hardware) : hardware(har
 
   for (int i = 0; i < count_; i++) {
     int channel = channels[i];
-    clients[channel] = new Client(channel);
+    clients[channel] = new Client(channel, hardware);
   }
 }
 
@@ -24,5 +24,5 @@ void Control::update() {
 }
 
 void Control::set_pinout(Interface pinout) {
-  clients[LOCAL] = new Client(pinout);
+  clients[LOCAL] = new Client(pinout, hardware);
 }

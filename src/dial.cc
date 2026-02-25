@@ -14,7 +14,7 @@ Dial::Dial(int ch, const Hardware& hardware) : hardware(hardware) {
 }
 
 Dial::Dial(Interface pinout, const Hardware& hardware) : hardware(hardware) {
-  attach(new DialDevice(pinout));
+  attach(new DialDevice(pinout, 0, hardware));
   zero();
 }
 

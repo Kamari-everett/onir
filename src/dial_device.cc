@@ -2,7 +2,9 @@
 
 #include "Arduino.h"
 
-DialDevice::DialDevice(Interface p, const Hardware& hardware) : hardware(hardware) {
+DialDevice::DialDevice(const Hardware& hardware) : hardware(hardware) { }
+
+DialDevice::DialDevice(Interface p, int x, const Hardware& hardware) : hardware(hardware) {
   set_pinout(p);
 }
 
@@ -21,7 +23,8 @@ void DialDevice::init() {
 }
 
 bool DialDevice::clock_pin() const {
-  return digitalRead(pinout[(int)PinFunction::CLOCK]);
+  return digitalRead(dispatch(hardware, PinFunction::CLOCK));
+//  return digitalRead(pinout[(int)PinFunction::CLOCK]); // TODO
 }
 
 bool DialDevice::data_pin() const {

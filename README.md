@@ -23,6 +23,24 @@ This will be several changes even if everything goes smoothly. There's (0) this 
 
 Then maybe I can get my channel selector working *and* keep all these toes I feel so attached to.
 
+--
+
+Thread one dial function ('clock') through the new hardware path.
+
+(much later in the day)
+
+This work is certainly underway at this point. I hope it's even fair to say I've reached a crack in the dam. The stuff flowing out looked wet anyway, and I tried drinking some and haven't died yet.
+
+Getting going with this was such a pain. Once I found the right way to do it (with the robot's extensive help -- new link below, the old one was getting laggy) things went... quickly would be the wrong word, but as with most programming work, I didn't usually remain stuck on any individual point for long enough to think about asking for help.
+
+The control loop would have to get a lot tighter for this version of the tool to speed me up in just writing some basic code. I understand that some of the tools people are using inside the big shops are getting interesting. But I'm working on other stuff right now.
+
+Anyway, once all the references were in place things felt like they were rolling downhill. Turning the dial on the device didn't work -- until I'd actually threaded everything through all the relevant call paths. Then it did. Same on the client side: move it through, there it is, no problem. I guess that's the point of doing the up-front work here. But what a pain.
+
+At least things are moving in what seems like a productive direction. Should be more code deletion coming. I like that part.
+
+(new AI chatbot thread: https://chatgpt.com/share/699e57e8-ad84-8003-9c61-aa003648919b)
+
 2026-02-23:
 
 Client dial scrolls device displays.

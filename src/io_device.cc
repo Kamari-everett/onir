@@ -1,7 +1,6 @@
 #include "io_device.h"
 
-IODevice::IODevice() {
-  dial = new DialDevice();
+IODevice::IODevice(const Hardware& hardware) : hardware(hardware) {
+  dial = new DialDevice(hardware);
   display = new DisplayDevice();
-
 }

@@ -20,7 +20,7 @@
 
 class IODevice {
 public:
-  IODevice();
+  IODevice(const Hardware& hardware = no_hardware);
 
   void set_pinout(int* p) {
     pinout = p;
@@ -52,5 +52,6 @@ private:
   
   DialDevice* dial;
   DisplayDevice* display;
-  
+
+  const Hardware& hardware;
 };

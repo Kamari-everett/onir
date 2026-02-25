@@ -3,15 +3,18 @@
 #include "Wire.h"
 
 #include "io_device.h"
+#include "hardware.h"
 #include "uno_pinout.h"
+#include "uno_io.h"
 #include "selector.h"
 #include "log.h"
 
-DisplayDevice device;
-Display display;
+DisplayDevice* device;
+Display* display;
+Hardware hardware = {};
 
 int* pinout = set_uno_pinout(init_interface);
-IODevice io;
+IODevice* io;
 
 int channel;
 
@@ -21,11 +24,11 @@ void on_receive(int n_bytes) {
     Serial.println("Format error!");
     n = (int)sizeof(DisplayState);
   }
-  Wire.readBytes((byte*)&io.state.display, n);
+  Wire.readBytes((byte*)&io->state.display, n);
 }
 
 void on_request() {
-  Wire.write((byte*)&io.state.dial, sizeof(DialState));
+  Wire.write((byte*)&io->state.dial, sizeof(DialState));
 }
 
 void start_channel() {
@@ -39,25 +42,31 @@ void setup() {
   Serial.begin(9600);
   log_winks = 10;  // I need a second.
   Serial.println("starting io device");
+  uno_io(hardware);
   Dial dial;
-  DialDevice dial_device;
-
-  device.set_pinout(pinout);
+  DialDevice dial_device(hardware);
   dial_device.set_pinout(pinout);
   dial.attach(&dial_device);
-  display.attach(&device);
-  display.set_point(-1);
-  channel = Selector(&dial, &display, false).get_channel();
+  display = new Display;
 
+  device = new DisplayDevice;
+  device->set_pinout(pinout);
+  display = new Display;
+  display->attach(device);
+  display->set_point(-1);
+
+  channel = Selector(&dial, display, false).get_channel();
   Serial.print("selected: ");
   Serial.println(channel);
-  io.set_pinout(pinout);
+
+  io = new IODevice(hardware);
+  io->set_pinout(pinout);
   start_channel();
 }
 
 void loop() {
-  io.update();
-  log(io.state);
+  io->update();
+  log(io->state);
   // if (io.reboot_channel > 0) {
   //   channel = io.reboot_channel;
   //   start_channel();

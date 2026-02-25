@@ -1,6 +1,6 @@
 #include "hardware.h"
 
-const Hardware no_hardware = {};
+const Hardware no_hardware = { };
 
 int assign(Hardware hardware, PinFunction fn, int pin) {
   return hardware[(int)fn] = pin;

@@ -10,7 +10,7 @@ Interface init_interface;
 int interface_size = (int)PinFunction::END;
 
 Onir::Onir(int* channels, int count, const Hardware& hw) : hardware(hw) {
-  control = new Control(channels, count);
+  control = new Control(channels, count, hardware);
   screen = new Screen(control);
 }
 

@@ -4,8 +4,8 @@
 
 class DialDevice {
 public:
-  DialDevice(const Hardware& hardware = no_hardware) : hardware(hardware) {}
-  DialDevice(Interface p, const Hardware& hardware = no_hardware);
+  DialDevice(const Hardware& hardware = no_hardware);
+  DialDevice(Interface p, int x, const Hardware& hardware = no_hardware);
   void set_pinout(Interface p);
 
   void init();
