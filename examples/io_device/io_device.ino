@@ -45,7 +45,6 @@ void setup() {
   uno_io(hardware);
   Dial dial;
   DialDevice dial_device(hardware);
-  dial_device.set_pinout(pinout);
   dial.attach(&dial_device);
   display = new Display;
 

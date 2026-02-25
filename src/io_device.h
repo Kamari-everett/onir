@@ -25,7 +25,7 @@ public:
   void set_pinout(int* p) {
     pinout = p;
     display->set_pinout(pinout);
-    dial->set_pinout(pinout);
+//    dial->set_pinout(pinout);
   }
 
   int reboot_channel = -1;

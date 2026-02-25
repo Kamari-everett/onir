@@ -13,11 +13,6 @@ Dial::Dial(int ch, const Hardware& hardware) : hardware(hardware) {
   set_channel(ch);
 }
 
-Dial::Dial(Interface pinout, const Hardware& hardware) : hardware(hardware) {
-  attach(new DialDevice(pinout, 0, hardware));
-  zero();
-}
-
 void Dial::attach(DialDevice* d) {
   device = d;
   device->init();

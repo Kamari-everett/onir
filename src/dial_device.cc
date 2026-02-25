@@ -2,37 +2,30 @@
 
 #include "Arduino.h"
 
-DialDevice::DialDevice(const Hardware& hardware) : hardware(hardware) { }
-
-DialDevice::DialDevice(Interface p, int x, const Hardware& hardware) : hardware(hardware) {
-  set_pinout(p);
-}
-
-void DialDevice::set_pinout(Interface p) {
-  pinout = p;
+DialDevice::DialDevice(const Hardware& hardware) : hardware(hardware) {
   init();
 }
 
 void DialDevice::init() {
-  pinMode(pinout[(int)PinFunction::CLOCK],  INPUT_PULLUP);
-  pinMode(pinout[(int)PinFunction::DATA],   INPUT_PULLUP);
-  pinMode(pinout[(int)PinFunction::SWITCH], INPUT_PULLUP);
-
+  if (not unset(hardware)) {
+    pinMode(dispatch(hardware, PinFunction::CLOCK),  INPUT_PULLUP);
+    pinMode(dispatch(hardware, PinFunction::DATA),  INPUT_PULLUP);
+    pinMode(dispatch(hardware, PinFunction::SWITCH),  INPUT_PULLUP);
+  }
   // assume the recent past was boring.
   clock = true;
 }
 
 bool DialDevice::clock_pin() const {
   return digitalRead(dispatch(hardware, PinFunction::CLOCK));
-//  return digitalRead(pinout[(int)PinFunction::CLOCK]); // TODO
 }
 
 bool DialDevice::data_pin() const {
-  return digitalRead(pinout[(int)PinFunction::DATA]);
+  return digitalRead(dispatch(hardware, PinFunction::DATA));
 }
 
 bool DialDevice::switch_pressed() const {
-  return not digitalRead(pinout[(int)PinFunction::SWITCH]);
+  return not digitalRead(dispatch(hardware, PinFunction::SWITCH));
 }
 
 void DialDevice::read(DialState& state) {

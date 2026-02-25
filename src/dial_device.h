@@ -5,15 +5,11 @@
 class DialDevice {
 public:
   DialDevice(const Hardware& hardware = no_hardware);
-  DialDevice(Interface p, int x, const Hardware& hardware = no_hardware);
-  void set_pinout(Interface p);
 
   void init();
   void read(DialState& state);
 
 private:
-  int* pinout = nullptr;
-
   bool clock = true;  // this pin is HIGH by default
 
   bool clock_pin() const;
